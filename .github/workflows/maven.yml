@@ -32,5 +32,5 @@ jobs:
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v2
       with:
-        name: tei-javalib-1.0.jar
-        path: /home/runner/work/tei-javalib/tei-javalib/target/tei-javalib-1.0.jar
+        name: tei-javalib-0.5.jar
+        path: /home/runner/work/tei-javalib/tei-javalib/target/tei-javalib-0.5.jar
