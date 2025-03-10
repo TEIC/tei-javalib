@@ -139,9 +139,10 @@ public class TEI {
 		odd2oddTransformer.setParameter(new QName("lang"), new XdmAtomicValue(properties.getLanguage()));
 		odd2oddTransformer.setParameter(new QName("doclang"), new XdmAtomicValue(properties.getLanguage()));
 		odd2oddTransformer.setParameter(new QName("useVersionFromTEI"), new XdmAtomicValue( properties.isUseVersionFromTEI() ? "true" : "false" ));
-		
+		odd2oddTransformer.setParameter(new QName("defaultSource"), new XdmAtomicValue( properties.getDefaultSource()));
+
 		if(null != properties.getMessageListener())
-			odd2oddTransformer.setMessageListener(properties.getMessageListener());
+			odd2oddTransformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
 		odd2oddTransformer.setInitialContextNode(tei);
 		XdmDestination result = new XdmDestination();
 		odd2oddTransformer.setDestination(result);
@@ -179,7 +180,7 @@ public class TEI {
 		odd2relaxTransformer.setParameter(new QName("patternPrefix"), new XdmAtomicValue(properties.getPatternPrefix()));
 		
 		if(null != properties.getMessageListener())
-			odd2relaxTransformer.setMessageListener(properties.getMessageListener());
+			odd2relaxTransformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
 		odd2relaxTransformer.setInitialContextNode(tei);
 		XdmDestination result = new XdmDestination();
 		odd2relaxTransformer.setDestination(result);
@@ -213,7 +214,7 @@ public class TEI {
 		odd2dtdTransformer.setParameter(new QName("parameterize"), new XdmAtomicValue(properties.isParameterizedDTD() ? "true" : "false"));
 		
 		if(null != properties.getMessageListener())
-			odd2dtdTransformer.setMessageListener(properties.getMessageListener());
+			odd2dtdTransformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
 		odd2dtdTransformer.setInitialContextNode(tei);
 		Serializer result = proc.newSerializer();
 		result.setOutputFile(properties.getOutputFile());
@@ -247,7 +248,7 @@ public class TEI {
 		odd2teiDocTransformer.setParameter(new QName("doclang"), new XdmAtomicValue(properties.getLanguage()));
 		
 		if(null != properties.getMessageListener())
-			odd2teiDocTransformer.setMessageListener(properties.getMessageListener());
+			odd2teiDocTransformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
 		odd2teiDocTransformer.setInitialContextNode(tei);
 		XdmDestination result = new XdmDestination();
 		odd2teiDocTransformer.setDestination(result);
@@ -280,7 +281,7 @@ public class TEI {
 		properties.setStylesheetParameters(transformer);
 		
 		if(null != properties.getMessageListener())
-			transformer.setMessageListener(properties.getMessageListener());
+			transformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
 		transformer.setInitialContextNode(tei);
 		Serializer result = proc.newSerializer();
 		result.setOutputFile( properties.getOutputFile() );
