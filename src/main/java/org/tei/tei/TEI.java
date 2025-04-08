@@ -6,16 +6,7 @@ import java.io.IOException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.saxon.s9api.Processor;
-import net.sf.saxon.s9api.QName;
-import net.sf.saxon.s9api.SaxonApiException;
-import net.sf.saxon.s9api.Serializer;
-import net.sf.saxon.s9api.XdmAtomicValue;
-import net.sf.saxon.s9api.XdmDestination;
-import net.sf.saxon.s9api.XdmNode;
-import net.sf.saxon.s9api.XsltCompiler;
-import net.sf.saxon.s9api.XsltExecutable;
-import net.sf.saxon.s9api.XsltTransformer;
+import net.sf.saxon.s9api.*;
 
 import org.tei.docx.DocX;
 import org.tei.exceptions.ConfigurationException;
@@ -281,7 +272,8 @@ public class TEI {
 		properties.setStylesheetParameters(transformer);
 		
 		if(null != properties.getMessageListener())
-			transformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
+			transformer.setMessageListener(properties.getMessageListener());
+			//transformer.setMessageHandler(msg -> System.err.println(">>" + msg.getContent().getStringValue()));
 		transformer.setInitialContextNode(tei);
 		Serializer result = proc.newSerializer();
 		result.setOutputFile( properties.getOutputFile() );

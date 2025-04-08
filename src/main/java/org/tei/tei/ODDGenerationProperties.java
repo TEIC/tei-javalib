@@ -25,6 +25,8 @@ public abstract class ODDGenerationProperties {
 	public String getLanguage(){
 		return "en";
 	}
+
+	public String getDefaultSource() { return "testsource20240722"; }
 	
 	public boolean isUseVersionFromTEI(){
 		return true;

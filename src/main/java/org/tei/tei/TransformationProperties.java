@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.xml.transform.ErrorListener;
 
-import net.sf.saxon.s9api.MessageListener;
+import net.sf.saxon.s9api.MessageListener2;
 import net.sf.saxon.s9api.XsltTransformer;
 
 abstract public class TransformationProperties {
@@ -14,7 +14,7 @@ abstract public class TransformationProperties {
 		return null;
 	}
 
-	public MessageListener getMessageListener() {
+	public MessageListener2 getMessageListener() {
 		return null;
 	}
 
