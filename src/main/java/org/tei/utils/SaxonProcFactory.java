@@ -25,10 +25,11 @@ public class SaxonProcFactory {
     public static Processor getProcessor() {
         if (null == processor) {
             final TransformerFactoryImpl transFactory = new net.sf.saxon.TransformerFactoryImpl();
-            try {
+           // try {
                 //REDHAT
                 //https://www.blackhat.com/docs/us-15/materials/us-15-Wang-FileCry-The-New-Age-Of-XXE-java-wp.pdf
-                transFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                //so the following works, but disallows all xsl:result-document call, which are needed for e.g. ODD to TEI transformations
+                //transFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
                 //transFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
                 //this would make all TEI stylesheets stop working
                 //transFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
@@ -46,9 +47,9 @@ public class SaxonProcFactory {
                         "http://saxon.sf.net/feature/parserFeature?uri=http://xml.org/sax/features/external-general-entities", false);
                 processor.setConfigurationProperty(
                         "http://saxon.sf.net/feature/parserFeature?uri=http://apache.org/xml/features/disallow-doctype-decl", true);
-            } catch (TransformerConfigurationException e) {
+            /* } catch (TransformerConfigurationException e) {
                 LOGGER.error("There is a Doctype Declaration present in the source document that cannot be processed due to security reasons. Please remove it from your file and try again." + e.getMessage());
-            }
+            } */
         }
         return processor;
     }
